@@ -1,0 +1,8 @@
+---
+# file: dbservers.yml
+- hosts: dbservers
+  roles:
+    - { role: common, tags: [ 'common' ] }
+    - { role: postgres, tags: [ 'postgres' ] }
+#    - { role: elasticsearch, tags: [ 'elasticsearch' ] }
+#    - { role: rabbitmq, tags: [ 'rabbitmq' ] }

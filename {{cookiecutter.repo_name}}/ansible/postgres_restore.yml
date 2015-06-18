@@ -1,0 +1,58 @@
+---
+{% raw %}
+- hosts: dbservers
+  vars:
+    local_dbdumps_dir: "{{ project_dir }}/dbdumps"
+
+  tasks:
+  - name: make sure postgres dump directory exists
+    sudo: yes
+    file: path={{ item }} owner=postgres group=adm mode=0755 state=directory
+    with_items:
+      - "{{ postgres_dumps_dir }}"
+
+  - name: copy local dump to remote machine
+    sudo: yes
+    copy: src={{ local_dbdumps_dir }}/{{ db_dump_file }} dest={{ postgres_dumps_dir }}/{{ db_dump_file }}
+
+  - name: drop old postgres db
+    sudo_user: postgres
+    sudo: yes
+    shell: dropdb {{ database_name }}
+
+  - name: create new postgres db
+    sudo_user: postgres
+    sudo: yes
+    shell: createdb {{ database_name }}
+
+  - name: restore postgres db from dump
+    sudo_user: postgres
+    sudo: yes
+    shell: pg_restore --no-owner -d {{ database_name }} {{ postgres_dumps_dir }}/{{ db_dump_file }}
+
+  - name: grant access to tables
+    sudo_user: postgres
+    sudo: yes
+    shell: psql {{ database_name }} -c "GRANT ALL ON ALL TABLES IN SCHEMA public to {{ database_name }};"
+
+  - name: grant access to sequences
+    sudo_user: postgres
+    sudo: yes
+    shell: psql {{ database_name }} -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to {{ database_name }};"
+
+  - name: grant access to functions
+    sudo_user: postgres
+    sudo: yes
+    shell: psql {{ database_name }} -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to {{ database_name }};"
+
+  - name: reindex restored db with elasticsearch
+    sudo_user: "{{ user }}"
+    sudo: yes
+    django_manage: >
+                   command="rebuild_index --noinput"
+                   app_path={{ django_dir }}
+                   virtualenv={{ virtualenv_dir }}
+                   settings={{ django_settings }}
+    environment:
+      SECRET_KEY: "{{ SECRET_KEY }}"
+{% endraw %}

@@ -1,0 +1,50 @@
+---
+{% raw %}
+project_dir: "{{ playbook_dir }}/.."
+local_dbdumps_dir: "{{ project_dir }}/dbdumps"
+overwrite_local_db: false
+{% endraw %}
+
+EMAIL_HOST: {{ email_host }}
+EMAIL_HOST_USER: {{ email_host_user }}
+django_settings: {{ django_settings_production }}
+
+project_name: {{ project_name }}
+{% raw %}
+user: "{{ project_name }}"
+database_name: "{{ project_name }}"
+user_dir: "/home/{{ user }}"
+log_root: "{{ user_dir }}/logs"
+run_root: "{{ user_dir }}/run"
+data_root: "{{ user_dir }}/data"
+webapp_dir: "{{ user_dir }}/{{ project_name }}_webapp"
+#django_dir: "{{ webapp_dir }}/{{ project_name }}"
+django_dir: "{{ webapp_dir }}"
+virtualenv_dir: "{{ user_dir }}/.virtualenvs/{{ project_name }}"
+static_dir: "{{ django_dir }}/assets"
+{% endraw %}
+server_name: {{ server_name }}
+
+{% raw %}
+postgres_dumps_dir: /tmp/pgdumps
+postgres_effective_cache_size: 248MB
+postgres_shared_buffers: 128MB
+
+django_webapp_log_dir: "{{ log_root }}/django"
+
+nginx_maintenance_dir: "/etc/nginx/maintenance"
+nginx_proxy_set_header_port: ""
+
+dev_requirements: no
+vagrant: no
+
+gunicorn_num_workers: 5
+gunicorn_max_requests: 1000
+gunicorn_user: "{{ user }}"
+{% endraw %}
+
+DJANGO_AWS_ACCESS_KEY_ID: "{{ django_aws_access_key_id }}"
+DJANGO_AWS_SECRET_ACCESS_KEY: "{{ django_aws_secret_access_key }}"
+DJANGO_AWS_STORAGE_BUCKET_NAME: "{{ django_aws_storage_bucket_name }}"
+SENDGRID_USERNAME: "{{ sendgrid_username }}"
+SENDGRID_PASSWORD: "{{ sendgrid_password }}"

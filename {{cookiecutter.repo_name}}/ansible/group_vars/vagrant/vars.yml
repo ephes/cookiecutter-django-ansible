@@ -1,0 +1,4 @@
+---
+vagrant: yes
+server_name: localhost
+nginx_proxy_set_header_port: ":8081"
