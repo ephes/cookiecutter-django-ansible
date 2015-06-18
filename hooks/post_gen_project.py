@@ -14,7 +14,7 @@ def fetch_ansible_roles():
         if len(my_roles) > 0:
             roles = my_roles
         
-    roles_dir = 'ansible'
+    roles_dir = 'ansible/roles'
     make_sure_path_exists(roles_dir)
     for role in roles:
         repo_url = 'git@github.com:ephes/ansible_{}.git'.format(role)
