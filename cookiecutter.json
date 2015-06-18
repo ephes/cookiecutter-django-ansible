@@ -1,7 +1,7 @@
 {
     "project_name": "project_name",
+    "ansible_roles": "common,postgres,django_webapp,nginx,source,gunicorn",
     "repo_name": "{{ cookiecutter.project_name|replace(' ', '_') }}",
-    "author_name": "Your Name",
     "email": "Your email",
     "description": "A short description of the project.",
     "domain_name": "example.com",
