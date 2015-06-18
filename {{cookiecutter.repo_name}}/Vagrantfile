@@ -49,7 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # provisioning for production
     production.vm.provision "ansible" do |ansible|
       ansible.playbook = "ansible/site.yml"
-      ansible.vault_password_file = "{{ vault_password_file }}"
+      ansible.vault_password_file = "ansible/.vault_pass.txt"
       ansible.inventory_path = "ansible/inventory"
       ansible.limit = "vagrantbox_prod"
       # ansible.verbose = "vvvv"
@@ -76,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # provisioning for develop
     develop.vm.provision "ansible" do |ansible|
       ansible.playbook = "ansible/vagrant_develop.yml"
-      ansible.vault_password_file = "{{ vault_password_file }}"
+      ansible.vault_password_file = "ansible/.vault_pass.txt"
       ansible.inventory_path = "ansible/inventory"
       ansible.limit = "vagrantbox_dev"
       # ansible.verbose = "vvvv"
