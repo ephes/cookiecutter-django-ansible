@@ -1,6 +1,6 @@
 {
     "project_name": "project_name",
-    "ansible_roles": "common,postgres,django_webapp,nginx,source,gunicorn",
+    "ansible_roles": "common,postgres,django_webapp,nginx,source,gunicorn,elasticsearch",
     "repo_name": "{{ cookiecutter.project_name|replace(' ', '_') }}",
     "ansible_ssh_user": "{{ project_name }}",
     "author_name": "Your Name",
@@ -16,5 +16,6 @@
     "django_aws_secret_access_key": "aws_secret_access_key",
     "django_aws_storage_bucket_name": "aws_storage_bucket_name",
     "sendgrid_username": "sendgrid_username",
-    "sendgrid_password": "sendgrid_password"
+    "sendgrid_password": "sendgrid_password",
+    "ansible_ssh_pubkeys": ""
 }
