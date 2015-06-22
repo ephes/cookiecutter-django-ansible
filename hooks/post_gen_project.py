@@ -48,9 +48,33 @@ def create_ansible_vault():
     vault_editor.encrypt_file()
 
 
+def add_ssh_pubkeys():
+    pubkey_paths = []
+    with open('requirements.ansible_ssh_pubkeys', 'r') as rfile:
+        my_pubkey_paths = rfile.read().rstrip().split(',')
+        if len(my_pubkey_paths) > 0:
+            for my_path in my_pubkey_paths:
+                my_path = os.path.expanduser(my_path)
+                my_path = os.path.abspath(my_path)
+                pubkey_paths.append(my_path)
+
+    pubkeys = []
+    for pubkey_path in pubkey_paths:
+        with open(pubkey_path) as pfile:
+            pubkey = pfile.read().rstrip()
+            if len(pubkey) > 0:
+                pubkeys.append(pubkey)
+
+    pubkeys_dir = 'ansible/roles/common/files/public_keys'
+    make_sure_path_exists(pubkeys_dir)
+    with open(os.path.join(pubkeys_dir, 'pubkeys'), 'w') as pubkeyfile:
+        pubkeyfile.write('\n'.join(pubkeys))
+
+
 def main(args):
     fetch_ansible_roles()
     create_ansible_vault()
+    add_ssh_pubkeys()
 
 
 if __name__ == '__main__':
