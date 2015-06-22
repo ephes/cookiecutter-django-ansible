@@ -5,11 +5,8 @@ local_dbdumps_dir: "{{ project_dir }}/dbdumps"
 overwrite_local_db: false
 {% endraw %}
 
-EMAIL_HOST: {{ email_host }}
-EMAIL_HOST_USER: {{ email_host_user }}
-django_settings: {{ django_settings_production }}
+project_name: {{ cookiecutter.project_name }}
 
-project_name: {{ project_name }}
 {% raw %}
 user: "{{ project_name }}"
 database_name: "{{ project_name }}"
@@ -23,7 +20,8 @@ django_dir: "{{ webapp_dir }}"
 virtualenv_dir: "{{ user_dir }}/.virtualenvs/{{ project_name }}"
 static_dir: "{{ django_dir }}/assets"
 {% endraw %}
-server_name: {{ server_name }}
+
+server_name: {{ cookiecutter.domain_name }}
 
 {% raw %}
 postgres_dumps_dir: /tmp/pgdumps
@@ -43,8 +41,8 @@ gunicorn_max_requests: 1000
 gunicorn_user: "{{ user }}"
 {% endraw %}
 
-DJANGO_AWS_ACCESS_KEY_ID: "{{ django_aws_access_key_id }}"
-DJANGO_AWS_SECRET_ACCESS_KEY: "{{ django_aws_secret_access_key }}"
-DJANGO_AWS_STORAGE_BUCKET_NAME: "{{ django_aws_storage_bucket_name }}"
-SENDGRID_USERNAME: "{{ sendgrid_username }}"
-SENDGRID_PASSWORD: "{{ sendgrid_password }}"
+DJANGO_AWS_ACCESS_KEY_ID: "{{ cookiecutter.django_aws_access_key_id }}"
+DJANGO_AWS_SECRET_ACCESS_KEY: "{{ cookiecutter.django_aws_secret_access_key }}"
+DJANGO_AWS_STORAGE_BUCKET_NAME: "{{ cookiecutter.django_aws_storage_bucket_name }}"
+SENDGRID_USERNAME: "{{ cookiecutter.sendgrid_username }}"
+SENDGRID_PASSWORD: "{{ cookiecutter.sendgrid_password }}"
