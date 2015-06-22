@@ -16,5 +16,5 @@
     "django_aws_secret_access_key": "aws_secret_access_key",
     "django_aws_storage_bucket_name": "aws_storage_bucket_name",
     "sendgrid_username": "sendgrid_username",
-    "sendgrid_password": "sendgrid_password",
+    "sendgrid_password": "sendgrid_password"
 }
