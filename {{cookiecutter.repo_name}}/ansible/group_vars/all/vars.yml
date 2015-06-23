@@ -8,6 +8,7 @@ overwrite_local_db: false
 project_name: {{ cookiecutter.project_name }}
 
 {% raw %}
+django_settings: config.settings.production
 user: "{{ project_name }}"
 database_name: "{{ project_name }}"
 user_dir: "/home/{{ user }}"
