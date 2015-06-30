@@ -16,7 +16,6 @@ log_root: "{{ user_dir }}/logs"
 run_root: "{{ user_dir }}/run"
 data_root: "{{ user_dir }}/data"
 webapp_dir: "{{ user_dir }}/{{ project_name }}_webapp"
-#django_dir: "{{ webapp_dir }}/{{ project_name }}"
 django_dir: "{{ webapp_dir }}"
 virtualenv_dir: "{{ user_dir }}/.virtualenvs/{{ project_name }}"
 static_dir: "{{ django_dir }}/assets"
@@ -29,7 +28,7 @@ postgres_dumps_dir: /tmp/pgdumps
 postgres_effective_cache_size: 248MB
 postgres_shared_buffers: 128MB
 
-django_webapp_log_dir: "{{ log_root }}/django"
+DJANGO_LOGFILE_PATH: "{{ django_dir }}/logfile"
 
 nginx_maintenance_dir: "/etc/nginx/maintenance"
 nginx_proxy_set_header_port: ""
