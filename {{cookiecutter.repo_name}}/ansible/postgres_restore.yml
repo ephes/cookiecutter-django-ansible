@@ -69,5 +69,6 @@
                    virtualenv={{ virtualenv_dir }}
                    settings={{ django_settings }}
     environment:
-      SECRET_KEY: "{{ SECRET_KEY }}"
+      SECRET_KEY: "{{ DJANGO_SECRET_KEY }}"
+      DJANGO_LOGFILE_PATH: "{{ DJANGO_LOGFILE_PATH }}"
 {% endraw %}
