@@ -54,3 +54,6 @@ node_modules/
 
 # ansible vault passphrase file
 .vault_pass.txt
+
+# static files
+staticfiles
