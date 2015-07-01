@@ -51,3 +51,9 @@ node_modules/
 
 # Compass
 .sass-cache
+
+# ansible vault passphrase file
+.vault_pass.txt
+
+# static files
+staticfiles

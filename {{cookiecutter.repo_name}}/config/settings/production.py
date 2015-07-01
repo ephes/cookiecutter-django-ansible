@@ -139,3 +139,5 @@ except ImportError:
     }
 
 # Your production stuff: Below this line define 3rd party library settings
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')

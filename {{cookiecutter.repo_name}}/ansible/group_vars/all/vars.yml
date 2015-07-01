@@ -1,0 +1,48 @@
+---
+{% raw %}
+project_dir: "{{ playbook_dir }}/.."
+local_dbdumps_dir: "{{ project_dir }}/dbdumps"
+overwrite_local_db: false
+{% endraw %}
+
+project_name: {{ cookiecutter.project_name }}
+
+{% raw %}
+django_settings: config.settings.production
+user: "{{ project_name }}"
+database_name: "{{ project_name }}"
+user_dir: "/home/{{ user }}"
+log_root: "{{ user_dir }}/logs"
+run_root: "{{ user_dir }}/run"
+data_root: "{{ user_dir }}/data"
+webapp_dir: "{{ user_dir }}/{{ project_name }}_webapp"
+django_dir: "{{ webapp_dir }}"
+virtualenv_dir: "{{ user_dir }}/.virtualenvs/{{ project_name }}"
+static_dir: "{{ django_dir }}/assets"
+{% endraw %}
+
+server_name: {{ cookiecutter.domain_name }}
+
+{% raw %}
+postgres_dumps_dir: /tmp/pgdumps
+postgres_effective_cache_size: 248MB
+postgres_shared_buffers: 128MB
+
+DJANGO_LOGFILE_PATH: "{{ django_dir }}/logfile"
+
+nginx_maintenance_dir: "/etc/nginx/maintenance"
+nginx_proxy_set_header_port: ""
+
+dev_requirements: no
+vagrant: no
+
+gunicorn_num_workers: 5
+gunicorn_max_requests: 1000
+gunicorn_user: "{{ user }}"
+{% endraw %}
+
+DJANGO_AWS_ACCESS_KEY_ID: "{{ cookiecutter.django_aws_access_key_id }}"
+DJANGO_AWS_SECRET_ACCESS_KEY: "{{ cookiecutter.django_aws_secret_access_key }}"
+DJANGO_AWS_STORAGE_BUCKET_NAME: "{{ cookiecutter.django_aws_storage_bucket_name }}"
+SENDGRID_USERNAME: "{{ cookiecutter.sendgrid_username }}"
+SENDGRID_PASSWORD: "{{ cookiecutter.sendgrid_password }}"

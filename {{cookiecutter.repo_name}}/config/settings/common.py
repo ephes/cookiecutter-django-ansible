@@ -245,7 +245,15 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': env('DJANGO_LOGFILE_PATH'),
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
     },
     'loggers': {
         'django.request': {

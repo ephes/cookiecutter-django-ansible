@@ -1,0 +1,26 @@
+vagrantbox_dev ansible_ssh_host=127.0.0.1 ansible_ssh_port=2223 ansible_ssh_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/develop/virtualbox/private_key
+vagrantbox_prod ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/production/virtualbox/private_key
+{{ cookiecutter.project_name }} ansible_ssh_host={{ server_name }} ansible_ssh_user={{ cookiecutter.ansible_ssh_user }}
+
+[webservers]
+{{ cookiecutter.project_name }}
+vagrantbox_prod
+
+[dbservers]
+{{ cookiecutter.project_name }}
+vagrantbox_prod
+vagrantbox_dev
+
+[vagrant]
+vagrantbox_prod
+vagrantbox_dev
+
+[production]
+{{ cookiecutter.project_name }}
+vagrantbox_prod
+
+[develop]
+vagrantbox_dev
+
+[test]
+vagrantbox_dev

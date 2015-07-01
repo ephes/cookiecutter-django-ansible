@@ -1,0 +1,43 @@
+---
+{% raw %}
+- hosts: dbservers
+  vars:
+    local_dbdumps_dir: "{{ project_dir }}/dbdumps"
+
+  tasks:
+  - debug: msg="dumps dir {{ postgres_dumps_dir }}"
+
+  - name: make sure postgres dump directory exists
+    file: path={{ item }} owner=postgres group=adm mode=0755 state=directory
+    sudo: yes
+    with_items:
+      - "{{ postgres_dumps_dir }}"
+
+  - name: register dbdump file name
+    set_fact:
+        db_dump_file: "{{ ansible_date_time.iso8601 }}.{{ host_name }}.{{ database_name }}.dump"
+
+  - name: create new postgres db dump
+    shell: pg_dump -Fc {{ database_name }} > {{ postgres_dumps_dir }}/{{ db_dump_file }}
+    sudo: yes
+    sudo_user: postgres
+
+  - name: fetch created dump
+    fetch: src={{ postgres_dumps_dir }}/{{ db_dump_file }} dest={{ local_dbdumps_dir }}/{{ db_dump_file }} flat=true
+
+  - name: drop local db
+    local_action: command dropdb {{ database_name }}
+    when: overwrite_local_db
+
+  - name: create new local db
+    local_action: command createdb {{ database_name }}
+    when: overwrite_local_db
+
+  - name: restore dump into local postgres db
+    local_action: command pg_restore -d {{ database_name }} {{ local_dbdumps_dir }}/{{ db_dump_file }}
+    when: overwrite_local_db
+
+  - name: reindex restored dump with elasticsearch
+    local_action: command command {{ project_dir }}/{{ project_name }}/manage.py rebuild_index --noinput
+    when: overwrite_local_db
+{% endraw %}

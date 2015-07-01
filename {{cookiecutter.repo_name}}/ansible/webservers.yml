@@ -1,0 +1,11 @@
+---
+# file: webservers.yml
+- hosts: webservers
+  roles:
+    - { role: elasticsearch, tags: [ 'elasticsearch' ] }
+#    - { role: rabbitmq, tags: [ 'rabbitmq' ] }
+#    - { role: celery, tags: [ 'celery' ] }
+    - { role: source, tags: [ 'source' ] }
+    - { role: django_webapp, tags: [ 'django_webapp' ] }
+    - { role: gunicorn, tags: [ 'gunicorn' ] }
+    - { role: nginx, tags: [ 'nginx' ] }

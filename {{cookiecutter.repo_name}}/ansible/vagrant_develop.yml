@@ -1,0 +1,10 @@
+---
+# file: vagrant_develop.yml
+- hosts: all
+  roles:
+    - { role: common, tags: [ 'common' ] }
+    - { role: postgres, tags: [ 'postgres' ] }
+    - { role: elasticsearch, tags: [ 'elasticsearch' ] }
+#    - { role: rabbitmq, tags: [ 'rabbitmq' ] }
+#    - { role: celery, tags: [ 'celery' ] }
+    - { role: django_webapp, tags: [ 'django_webapp' ] }

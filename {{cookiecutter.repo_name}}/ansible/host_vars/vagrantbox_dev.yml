@@ -1,0 +1,10 @@
+---
+{% raw %}
+user: vagrant
+webapp_dir: "/vagrant"
+django_dir: "{{ webapp_dir }}"
+django_settings: config.settings.local
+postgres_effective_cache_size: 128MB
+postgres_shared_buffers: 64MB
+dev_requirements: yes
+{% endraw %}
