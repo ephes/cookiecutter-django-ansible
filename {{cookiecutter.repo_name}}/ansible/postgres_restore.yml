@@ -45,6 +45,21 @@
     sudo: yes
     shell: psql {{ database_name }} -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to {{ database_name }};"
 
+  - name: change owner of tables
+    sudo_user: postgres
+    sudo: yes
+    shell: for tbl in $(psql -qAt -c "select tablename from pg_tables where schemaname = 'public';" {{ database_name }}) ; do  psql -c "alter table $tbl owner to {{ db_user }}" {{ database_name }} ; done
+
+  - name: change owner of sequences
+    sudo_user: postgres
+    sudo: yes
+    shell: for tbl in $(psql -qAt -c "select sequence_name from information_schema.sequences where sequence_schema = 'public';" {{ database_name }}) ; do  psql -c "alter table $tbl owner to {{ db_user }}" {{ database_name }}; done
+
+  - name: change owner of views
+    sudo_user: postgres
+    sudo: yes
+    shell: for tbl in $(psql -qAt -c "select table_name from information_schema.views where table_schema = 'public';" {{ database_name }}) ; do  psql -c "alter table $tbl owner to {{ db_user }}" {{ database_name }}; done
+
   - name: reindex restored db with elasticsearch
     sudo_user: "{{ user }}"
     sudo: yes
